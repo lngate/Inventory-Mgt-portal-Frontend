@@ -7,6 +7,7 @@ import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper';
 import { useRef, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function Login() {
     const userRef = useRef();
@@ -15,7 +16,6 @@ function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const paperStyle = { padding: '50px', width: 600, margin: '20px auto' };
-    const user = { email, password };
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState('');
 
@@ -31,46 +31,31 @@ function Login() {
         event.preventDefault();
 
         try {
-            const response = await fetch(process.env.REACT_APP_BACKEND_URL + '/UserLogin', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json; charset=utf-8',
-                    withCredentials: true,
-                },
-                body: JSON.stringify(user),
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                localStorage.setItem('app_token', data.body.token);
-                localStorage.setItem('username', data.body.first_name);
-                navigate('/home');
-            } else {
-                const errorMessage = await response.text();
-                handleErrorResponse(response.status, errorMessage);
-            }
-        } catch (error) {
-            console.error(error);
-            setErrorMessage('An error occurred while processing your request.');
+            await axios.post("http://localhost:4567/UserLogin",{
+                email:email,
+                password: password,
+            }).then ((res)=>
+            {
+            console.log(res.data);
+            if(res.data.message == "Email not exist")
+            {setErrorMessage ('Email does not Exist');
+        }else if(res.data.message == "Login successful")
+        {
+            navigate('/home');
         }
-    };
-
-    const handleErrorResponse = (status, errorMessage) => {
-        switch (status) {
-            case 404:
-                setErrorMessage('User does not exist');
-                break;
-            case 500:
-                setErrorMessage('Internal server error');
-                break;
-            case 401:
-                setErrorMessage('Email or Password does not match');
-                break;
-            default:
-                setErrorMessage('Other errors');
-                errRef.current.focus();
+        else{
+            setErrorMessage ("Invalid email or password. Please try again.");
         }
-    };
+    }, fail =>{
+        console.error(fail);
+    });
+}
+ catch(err){
+    setErrorMessage(err);
+}
+}
+
+
 
     return (
         <Container>

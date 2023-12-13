@@ -38,21 +38,21 @@ import axios from 'axios';
             }).then ((res)=>
             {
             console.log(res.data);
-            if(res.data.message === "Email not exist")
-            {alert ('Email does not Exist');
-        }else if(res.data.message === "Login successful")
+            if(res.data.message == "Email not exist")
+            {setErrorMessage ('Email does not Exist');
+        }else if(res.data.message == "Login successful")
         {
             navigate('/home');
         }
         else{
-            alert ("Invalid email or password. Please try again.");
+            setErrorMessage ("Invalid email or password. Please try again.");
         }
     }, fail =>{
         console.error(fail);
     });
 }
  catch(err){
-    alert(err);
+    setErrorMessage(err);
 }
 }
 
