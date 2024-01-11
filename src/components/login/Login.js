@@ -88,6 +88,7 @@ function Login() {
                             id="outlined-basic"
                             label="Email"
                             variant="outlined"
+                            color="success"
                             fullWidth
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
@@ -99,6 +100,7 @@ function Login() {
                             type="password"
                             label="Password"
                             variant="outlined"
+                            color="success"
                             fullWidth
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}

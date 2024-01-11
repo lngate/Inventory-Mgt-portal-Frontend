@@ -12,13 +12,17 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import { useNavigate } from 'react-router-dom';
 
 
-const pages = ['Inventory', 'Decommisoning', 'FTTB rollout materials', 'Pricing', 'Blog'];
+
+const pages = ['Inventory', 'Decommisoning', 'FTTB rollout materials', 'Pricing', 'Reports'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
+
 function Home() {
-    const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const navigate = useNavigate();
+  const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
@@ -34,6 +38,10 @@ function Home() {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+  const handlePageClick = (page) => {
+    navigate('/' + page.toLowerCase()); // navigate to the corresponding page
+    handleCloseNavMenu(); // close the menu after navigation
   };
 
   return (
@@ -89,7 +97,7 @@ function Home() {
             }}
           >
             {pages.map((page) => (
-              <MenuItem key={page} onClick={handleCloseNavMenu}>
+              <MenuItem key={page} onClick={()=> handlePageClick(page)}>
                 <Typography textAlign="center">{page}</Typography>
               </MenuItem>
             ))}
@@ -118,7 +126,7 @@ function Home() {
           {pages.map((page) => (
             <Button
               key={page}
-              onClick={handleCloseNavMenu}
+              onClick={()=> handlePageClick(page)}
               sx={{ my: 2, color: 'white', display: 'block' }}
             >
               {page}
@@ -152,7 +160,7 @@ function Home() {
               <MenuItem key={setting} onClick={handleCloseUserMenu}>
                 <Typography textAlign="center">{setting}</Typography>
               </MenuItem>
-            ))}
+              ))}
           </Menu>
         </Box>
       </Toolbar>
@@ -161,5 +169,7 @@ function Home() {
 
   )
 }
+
+
 
 export default Home
