@@ -13,6 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { useNavigate } from 'react-router-dom';
+import withLayout from '../withLayout';
 
 
 
@@ -172,4 +173,4 @@ function Home() {
 
 
 
-export default Home
+export default withLayout(Home)

@@ -1,16 +1,15 @@
 
-import Appbar from './components/Menubar';
 import Login from './components/login/Login';
 import AdminLogin from './components/login/AdminLogin';
 import Home from './components/Home';
 import Inventory from './components/Inventory';
 import FttbMaterials from './components/FttbMaterials';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import MenuBar from './components/Menubar';
 import AdminRegisterUsers from './components/Admin/AdminRegisterUsers';
 import Decommisioning from './components/Decommisioning';
 import Reports from './components/Reports';
 import Pricing from './components/Pricing';
+
 
 
 function App() {
